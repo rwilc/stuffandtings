@@ -1,3 +1,7 @@
+## Create Staging directory
+
+New-Item -Path "C:\" -Name "Staging" -ItemType Directory
+
 ## Download GPO CMD Line Tool
 
 Invoke-WebRequest -Uri "https://github.com/rwilc/stuffandtings/raw/main/Tools/LGPO/LGPO_30/LGPO.exe" -OutFile "c:\Staging\LGPO.exe"
