@@ -1,0 +1,62 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "imageTemplates_WindowsServer2019-Datacentre-x64-G2-GUI-002_name": {
+            "defaultValue": "WindowsServer2019-Datacentre-x64-G2-GUI-002",
+            "type": "String"
+        },
+        "galleries_img_tst_uks_002_externalid": {
+            "defaultValue": "/subscriptions/e8c18b6c-6da1-4409-8e95-abe76f91c3ba/resourceGroups/rg-tst-uks-image-builder/providers/Microsoft.Compute/galleries/img.tst.uks.002",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.VirtualMachineImages/imageTemplates",
+            "apiVersion": "2022-02-14",
+            "name": "[parameters('imageTemplates_WindowsServer2019-Datacentre-x64-G2-GUI-002_name')]",
+            "location": "uksouth",
+            "identity": {
+                "type": "UserAssigned",
+                "userAssignedIdentities": {
+                    "/subscriptions/e8c18b6c-6da1-4409-8e95-abe76f91c3ba/resourcegroups/rg-tst-uks-image-builder/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-tst-image-builder": {}
+                }
+            },
+            "properties": {
+                "source": {
+                    "offer": "windowsserver",
+                    "publisher": "MicrosoftWindowsServer",
+                    "sku": "2019-datacenter-gensecond",
+                    "type": "PlatformImage",
+                    "version": "latest"
+                },
+                "customize": [
+ 
+                    
+
+                ],
+                "distribute": [
+                    {
+                        "artifactTags": {
+                            "tag": "dis-share"
+                        },
+                        "excludeFromLatest": false,
+                        "galleryImageId": "[concat(parameters('galleries_img_tst_uks_002_externalid'), concat('/images/', parameters('imageTemplates_WindowsServer2019-Datacentre-x64-G2-GUI-002_name')))]",
+                        "replicationRegions": [
+                            "UKSouth"
+                        ],
+                        "runOutputName": "DistResults",
+                        "type": "SharedImage"
+                    }
+                ],
+                "buildTimeoutInMinutes": 40,
+                "vmProfile": {
+                    "vmSize": "Standard_B2s",
+                    "osDiskSizeGB": 0
+                }
+            }
+        }
+    ]
+}

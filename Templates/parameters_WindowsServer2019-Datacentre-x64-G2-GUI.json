@@ -1,0 +1,12 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "imageTemplates_WindowsServer2019_Datacentre_x64_G2_GUI_name": {
+            "value": null
+        },
+        "galleries_img_tst_uks_001_externalid": {
+            "value": null
+        }
+    }
+}
